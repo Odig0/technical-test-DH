@@ -1,22 +1,56 @@
-import { Component, signal } from '@angular/core';
-import { FilterType, TodoModel } from '../../models/todo';
+// src/app/components/todo/todo.component.ts
+
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'
+import { TodoFacade } from '../../services/todo-facade.service';
+import { TodoModel, FilterType } from '../../models/todo';
+import { AsyncPipe, NgForOf } from '@angular/common'; // Importar AsyncPipe y NgForOf si estás usando Angular 14+
+import { signal } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule, AsyncPipe, NgForOf, HttpClientModule], // Asegúrate de importar estos módulos
   templateUrl: './todo.component.html',
-  styleUrl: './todo.component.css'
+  styleUrls: ['./todo.component.css']
 })
 export class TodoComponent {
-  todolist = signal<TodoModel[]>([
-    { id: 1, title: 'Todo 1', completed: false , edditing: false},
-    { id: 2, title: 'Todo 2', completed: true }
-
-  ])
-
+  newTodoTitle = '';
   filter = signal<FilterType>('all');
-  changueFilter (filterString: FilterType){
 
+  todos$ = this.todoFacade.todos$;
+  filteredTodos$ = this.todoFacade.getFilteredTodos();
+
+  constructor(private todoFacade: TodoFacade) {}
+
+  addTodo() {
+    if (this.newTodoTitle.trim()) {
+      const newTodo: TodoModel = {
+        id: Date.now(), // Just a placeholder; your server should generate IDs
+        title: this.newTodoTitle,
+        completed: false
+      };
+      this.todoFacade.addTodo(newTodo);
+      this.newTodoTitle = '';
+    }
+  }
+
+  toggleComplete(todo: TodoModel) {
+    const updatedTodo = { ...todo, completed: !todo.completed };
+    this.todoFacade.updateTodo(todo.id, updatedTodo);
+  }
+
+  editTodo(todo: TodoModel) {
+    // Implement your edit logic here
+  }
+
+  deleteTodo(todo: TodoModel) {
+    this.todoFacade.deleteTodoById(todo.id);
+  }
+
+  changeFilter(filter: FilterType) {
+    this.todoFacade.changeFilter(filter);
   }
 }

@@ -1,26 +1,28 @@
+<!-- src/app/components/todo/todo.component.html -->
+
 <section class="todolist-wrapper">
     <h1>TODO APP</h1>
     <div class="new-todo">
-        <input type="text" placeholder="Ingresa una nueva tarea" >
-        <button>+</button>
+      <input type="text" [(ngModel)]="newTodoTitle" placeholder="Ingresa una nueva tarea">
+      <button (click)="addTodo()">+</button>
     </div>
-
+  
     <div class="filters">
-        <button (click)="changueFilter('all')"  [class.active]="filter() === 'all'">Todos</button>
-        <button (click)="changueFilter('active')" [class.active]="filter() === 'active'">Activas</button>
-        <button (click)="changueFilter('completed')" [class.active]="filter() === 'completed'">Completados</button> <!-- Aquí estaba el error -->
+      <button (click)="changeFilter('all')" [class.active]="filter() === 'all'">Todos</button>
+      <button (click)="changeFilter('active')" [class.active]="filter() === 'active'">Activas</button>
+      <button (click)="changeFilter('completed')" [class.active]="filter() === 'completed'">Completados</button>
     </div>
-
+  
     <ul class="todolist">
-        <li class="todo">
-            <input type="checkbox" name="" id="">
-            <label >Titulo de tarea</label>
-            <button>Editar</button>
-            <button>Eliminar</button>
-        </li>
-
-        <li>
-            <input type="text" placeholder="Editar Tarea">
-        </li>
+      <li *ngFor="let todo of filteredTodos$ | async" class="todo">
+        <input type="checkbox" [checked]="todo.completed" (change)="toggleComplete(todo)">
+        <label>{{ todo.title }}</label>
+        <button (click)="editTodo(todo)">Editar</button>
+        <button (click)="deleteTodo(todo)">Eliminar</button>
+      </li>
+      <li>
+        <input type="text" placeholder="Editar Tarea">
+      </li>
     </ul>
-</section>
+  </section>
+  
