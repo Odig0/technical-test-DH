@@ -52,11 +52,13 @@ export class TodoFacade {
     return this.todos$.pipe(
       map(todos => {
         const filter = this.filterSubject.value;
+        console.log('Current filter:', filter);
+        console.log('Todos before filtering:', todos);
         if (filter === 'all') return todos;
         if (filter === 'active') return todos.filter(todo => !todo.completed);
         if (filter === 'completed') return todos.filter(todo => todo.completed);
         return todos;
       })
     );
-  }
+  }  
 }

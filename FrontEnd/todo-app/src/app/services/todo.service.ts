@@ -8,7 +8,7 @@ import { TodoModel } from '../models/todo';
 })
 
 export class TodoService {
-  private apiUrl = 'http://localhost:8080/'; // URL base de tu API
+  private apiUrl = 'http://localhost:8080'; // URL base de tu API
 
   constructor(private http: HttpClient) { }
 
