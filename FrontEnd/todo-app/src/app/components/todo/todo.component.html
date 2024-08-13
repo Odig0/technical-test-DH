@@ -1,0 +1,26 @@
+<section class="todolist-wrapper">
+    <h1>TODO APP</h1>
+    <div class="new-todo">
+        <input type="text" placeholder="Ingresa una nueva tarea" >
+        <button>+</button>
+    </div>
+
+    <div class="filters">
+        <button (click)="changueFilter('all')"  [class.active]="filter() === 'all'">Todos</button>
+        <button (click)="changueFilter('active')" [class.active]="filter() === 'active'">Activas</button>
+        <button (click)="changueFilter('completed')" [class.active]="filter() === 'completed'">Completados</button> <!-- Aquí estaba el error -->
+    </div>
+
+    <ul class="todolist">
+        <li class="todo">
+            <input type="checkbox" name="" id="">
+            <label >Titulo de tarea</label>
+            <button>Editar</button>
+            <button>Eliminar</button>
+        </li>
+
+        <li>
+            <input type="text" placeholder="Editar Tarea">
+        </li>
+    </ul>
+</section>
