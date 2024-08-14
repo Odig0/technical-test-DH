@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
 export class TodoComponent implements OnInit {
   newTodoTitle = '';
   filter: FilterType = 'all'; // Usa una variable normal en lugar de `signal`
+  editedTodo: TodoModel | null = null; // Agrega una variable para el título editado
 
   todos$ = this.todoFacade.todos$;
   filteredTodos$: Observable<TodoModel[]>;
@@ -63,5 +64,8 @@ export class TodoComponent implements OnInit {
   changeFilter(filter: FilterType) {
     console.log('Changing filter in component:', filter); // Verifica el filtro
     this.todoFacade.changeFilter(filter); // Actualiza el filtro en el servicio
+  }
+  preparedForEdit(todo: TodoModel) {
+    this.editedTodo = todo;
   }
 }

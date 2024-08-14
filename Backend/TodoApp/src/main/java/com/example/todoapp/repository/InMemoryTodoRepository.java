@@ -18,9 +18,9 @@ public class InMemoryTodoRepository implements TodoRepository {
     public InMemoryTodoRepository() {
         todoList = new ArrayList<>();
         // Inicialización de datos de ejemplo
-        Todo todo1 = new Todo( "Comprar fruta ", LocalDateTime.now(), Todo.State.IN_PROGRESS);
-        Todo todo2 = new Todo( "Recoger a mi hermano del colegio", LocalDateTime.now().minusDays(1), Todo.State.DONE);
-        Todo todo3 = new Todo("Terminar prueba Tecnica", LocalDateTime.now().minusDays(2), Todo.State.IN_PROGRESS);
+        Todo todo1 = new Todo( "Comprar fruta ", LocalDateTime.now(), Todo.State.IN_PROGRESS, false);
+        Todo todo2 = new Todo( "Recoger a mi hermano del colegio", LocalDateTime.now().minusDays(1), Todo.State.DONE,false);
+        Todo todo3 = new Todo("Terminar prueba Tecnica", LocalDateTime.now().minusDays(2), Todo.State.IN_PROGRESS,true);
 
         todo1.setId(idCounter.getAndIncrement());
         todo2.setId(idCounter.getAndIncrement());

@@ -54,16 +54,18 @@
         <label class="text-white">{{ todo.title }}</label>
       </div>
       <div class="flex gap-2">
-        <button (click)="editTodo(todo)" class="text-blue-400 hover:text-blue-500">Editar</button>
+        <button (click)="preparedForEdit(todo)" class="text-blue-400 hover:text-blue-500">Editar</button>
         <button (click)="deleteTodo(todo)" class="text-red-400 hover:text-red-500">Eliminar</button>
       </div>
     </li>
     <li>
       <input
         type="text"
+        [(ngModel)]="editedTodo"
         placeholder="Editar Tarea"
         class="w-full p-2 rounded-md text-white bg-gray-800 border border-gray-700"
       />
+      <button (click)="editTodo(editedTodo)" class="text-blue-400 hover:text-blue-500">Guardar</button>  //objeto todo hacer que cuando escribase en ese input se actualice el titutlo del objeto del editedTodo
     </li>
   </ul>
 </section>

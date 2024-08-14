@@ -1,8 +1,8 @@
 export interface TodoModel {
     id?: number;
     title: string;
-    completed: boolean;
     creationDate: string;
+    completed: boolean;
     editing?: boolean;
   }
   

@@ -7,12 +7,13 @@ public class Todo {
     private String title;
     private LocalDateTime creationDate;
     private State state;
+    private boolean completed;
 
-    public Todo(String title, LocalDateTime creationDate, State state) {
+    public Todo(String title, LocalDateTime creationDate, State state, Boolean completed) {
         this.title = title;
         this.creationDate = creationDate;
         this.state = State.IN_PROGRESS;
-
+        this.completed = false;
     }
 
     public Integer getId() {
@@ -45,6 +46,13 @@ public class Todo {
 
     public void setState(State state) {
         this.state = state;
+    }
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public enum State {
