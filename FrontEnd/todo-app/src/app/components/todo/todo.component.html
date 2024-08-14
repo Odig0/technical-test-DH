@@ -42,32 +42,32 @@
 
   
 
-  <ul class="todolist space-y-2">
-    <li *ngFor="let todo of todos$ | async" class="todo flex items-center justify-between p-2 bg-gray-800 rounded-md">
-      <div class="flex items-center gap-2">
-        <input
-          type="checkbox"
-          [checked]="todo.completed"
-          (change)="toggleComplete(todo)"
-          class="form-checkbox h-5 w-5 text-blue-600 bg-gray-900 border-gray-600 rounded"
-        />
-        <label class="text-white">{{ todo.title }}</label>
-      </div>
-      <div class="flex gap-2">
-        <button (click)="preparedForEdit(todo)" class="text-blue-400 hover:text-blue-500">Editar</button>
-        <button (click)="deleteTodo(todo)" class="text-red-400 hover:text-red-500">Eliminar</button>
-      </div>
-    </li>
-    <li>
+<ul class="todolist space-y-2">
+  <li *ngFor="let todo of todos$ | async" class="todo flex items-center justify-between p-2 bg-gray-800 rounded-md">
+    <div class="flex items-center gap-2">
       <input
-        type="text"
-        [(ngModel)]="editedTodoTitle"
-        placeholder="Editar Tarea"
-        class="w-full p-2 rounded-md text-white bg-gray-800 border border-gray-700"
+        type="checkbox"
+        [checked]="todo.completed"
+        (change)="toggleComplete(todo)"
+        class="form-checkbox h-5 w-5 text-blue-600 bg-gray-900 border-gray-600 rounded"
       />
-      <button (click)="editTodo(editedTodo)" class="text-blue-400 hover:text-blue-500">Guardar</button>
-    </li>
-  </ul>
+      <label class="text-white">{{ todo.title }}</label>
+    </div>
+    <div class="flex gap-2">
+      <button (click)="preparedForEdit(todo)" class="text-blue-400 hover:text-blue-500">Editar</button>
+      <button (click)="deleteTodo(todo)" class="text-red-400 hover:text-red-500">Eliminar</button>
+    </div>
+  </li>
+  <li>
+    <input
+      type="text"
+      [(ngModel)]="editedTodoTitle"
+      placeholder="Editar Tarea"
+      class="w-full p-2 rounded-md text-white bg-gray-800 border border-gray-700"
+    />
+    <button (click)="editTodo(editedTodo)" class="text-blue-400 hover:text-blue-500">Guardar</button>
+  </li>
+</ul>
 </section>
 
 

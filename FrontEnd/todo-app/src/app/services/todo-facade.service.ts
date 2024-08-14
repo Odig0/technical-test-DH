@@ -10,6 +10,7 @@ import { TodoModel, FilterType } from '../models/todo';
 export class TodoFacade {
   private todosSubject = new BehaviorSubject<TodoModel[]>([]);
   todos$ = this.todosSubject.asObservable();
+  todoAux: TodoModel[] = [];
 
   private filterSubject = new BehaviorSubject<FilterType>('all');
   filter$ = this.filterSubject.asObservable();
@@ -20,7 +21,8 @@ export class TodoFacade {
 
   private loadTodos(): void {
     this.todoService.getTodos().subscribe(todos => {
-      console.log('Todos loaded:', todos);
+      this.todoAux = todos;
+      // console.log('Todos loaded:', this.todoAux);
       this.todosSubject.next(todos);
     });
   }
@@ -43,23 +45,23 @@ export class TodoFacade {
     });
   }
 
-  changeFilter(filter: FilterType): void {
-    console.log('Changing filter in facade:', filter); // Verifica el filtro
-    this.filterSubject.next(filter);
-  }
-
-  getFilteredTodos(): Observable<TodoModel[]> {
-    return this.todos$.pipe(
-      map(todos => {
-        const filter = this.filterSubject.value;
-        console.log('Current filter:', filter);
-        console.log('Todos before filtering:', todos);
-        if (filter === 'all') return todos;
-        if (filter === 'in_progress') return todos.filter(todo => !todo.completed);
-        if (filter === 'done') return todos.filter(todo => todo.completed);
-        return todos;
-      })
-    );
-  }
   
+  getFilteredTodos(filter: FilterType) {
+    let todosFiltered: TodoModel[] = [];
+
+    switch (filter) {
+        case 'in_progress':
+            todosFiltered = this.todoAux.filter(todo => !todo.completed);
+            break;
+        case 'done':
+            todosFiltered = this.todoAux.filter(todo => todo.completed);
+            break;
+        case 'all':
+        default:
+            todosFiltered = this.todoAux;
+            break;
+    }
+
+    this.todosSubject.next(todosFiltered);
+  }
 }

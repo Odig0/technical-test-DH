@@ -24,7 +24,6 @@ public class TodoDTO {
         this.completed = false;
     }
 
-    // Getters y setters
 
     public Integer getId() {
         return id;
