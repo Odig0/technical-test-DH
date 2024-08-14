@@ -1,13 +1,28 @@
 package com.example.todoapp.api.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class TodoDTO {
+
     private Integer id;
+
+    @NotNull
+            (message = "La tarea no puede estar vacia.")
+    @Size(min = 3, max = 100, message = "La tarea debe tener  entre 3 y 100 caracteres.")
     private String title;
+
     private LocalDateTime creationDate;
+
     private String state;
-    private boolean completed;
+
+    private boolean completed = false;
+
+    // Constructor predeterminado
+    public TodoDTO() {
+        this.completed = false;
+    }
 
     // Getters y setters
 

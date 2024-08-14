@@ -14,7 +14,7 @@ export class TodoService {
 
   // Obtener todos los todos
   getTodos(): Observable<TodoModel[]> {
-    return this.http.get<TodoModel[]>(`${this.apiUrl}/todos`);
+    return this.http.get<TodoModel[]>(`${this.apiUrl}/todo`);
   }
 
   // Obtener un todo por ID
