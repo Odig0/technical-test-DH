@@ -19,28 +19,28 @@ public class TodoController {
         this.todoService = todoService;
     }
 
-    @GetMapping("/gettodo")
+    @GetMapping("/todo")
     public Todo getTodoById(@RequestParam Integer id) {
         Optional<Todo> todo = todoService.getTodoById(id);
         return todo.orElse(null);
     }
 
-    @GetMapping("/gettodos")
+    @GetMapping("/todos")
     public List<Todo> getAllTodos() {
         return todoService.getAllTodos();
     }
 
-    @PostMapping("/addtodo")
+    @PostMapping("/todo")
     public void addTodo(@RequestBody Todo todo) {
         todoService.addTodo(todo);
     }
 
-    @PutMapping("/updatetodo")
+    @PutMapping("/todo")
     public void updateTodo(@RequestParam Integer id, @RequestBody Todo updatedTodo) {
         todoService.updateTodo(id, updatedTodo);
     }
 
-    @DeleteMapping("/deletetodo")
+    @DeleteMapping("/todo")
     public void deleteTodoById(@RequestParam Integer id) {
         todoService.deleteTodoById(id);
     }

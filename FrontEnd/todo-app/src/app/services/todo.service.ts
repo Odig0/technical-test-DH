@@ -14,26 +14,26 @@ export class TodoService {
 
   // Obtener todos los todos
   getTodos(): Observable<TodoModel[]> {
-    return this.http.get<TodoModel[]>(`${this.apiUrl}/gettodos`);
+    return this.http.get<TodoModel[]>(`${this.apiUrl}/todos`);
   }
 
   // Obtener un todo por ID
   getTodoById(id: number): Observable<TodoModel> {
-    return this.http.get<TodoModel>(`${this.apiUrl}/gettodo?id=${id}`);
+    return this.http.get<TodoModel>(`${this.apiUrl}/todo?id=${id}`);
   }
 
   // Agregar un nuevo todo
   addTodo(todo: TodoModel): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/addtodo`, todo);
+    return this.http.post<void>(`${this.apiUrl}/todo`, todo);
   }
 
   // Actualizar un todo existente
   updateTodo(id: number, todo: TodoModel): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/updatetodo?id=${id}`, todo);
+    return this.http.put<void>(`${this.apiUrl}/todo?id=${id}`, todo);
   }
 
   // Eliminar un todo por ID
   deleteTodoById(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/deletetodo?id=${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/todo?id=${id}`);
   }
 }

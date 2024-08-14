@@ -28,7 +28,7 @@ export class TodoComponent {
   addTodo() {
     if (this.newTodoTitle.trim()) {
       const newTodo: TodoModel = {
-        id: Date.now(), // Just a placeholder; your server should generate IDs
+        id: 5, 
         title: this.newTodoTitle,
         completed: false
       };
@@ -43,7 +43,8 @@ export class TodoComponent {
   }
 
   editTodo(todo: TodoModel) {
-    // Implement your edit logic here
+    const updatedTodo = { ...todo, title: todo.title.trim() };
+    this.todoFacade.updateTodo(todo.id, updatedTodo);
   }
 
   deleteTodo(todo: TodoModel) {

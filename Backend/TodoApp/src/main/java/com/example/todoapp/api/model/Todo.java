@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 
 public class Todo {
     private Integer id;
-    private String name;
+    private String title;
     private LocalDateTime creationDate;
     private state state;
 
-    public Todo(Integer id, String name, LocalDateTime creationDate, state state) {
+    public Todo(Integer id, String title, LocalDateTime creationDate, state state) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.creationDate = creationDate;
         this.state = state;
     }
@@ -23,12 +23,12 @@ public class Todo {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public LocalDateTime getCreationDate() {
