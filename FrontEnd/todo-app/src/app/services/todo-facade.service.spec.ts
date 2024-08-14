@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TodoFacadeService } from './todo-facade.service';
+import { TodoFacade } from '../services/todo-facade.service';
 
-describe('TodoFacadeService', () => {
-  let service: TodoFacadeService;
+describe('TodoFacade', () => {
+  let service: TodoFacade;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TodoFacadeService);
+    service = TestBed.inject(TodoFacade);
   });
 
   it('should be created', () => {

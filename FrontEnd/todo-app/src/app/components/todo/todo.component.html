@@ -1,28 +1,170 @@
+<section class="todolist-wrapper p-4 max-w-sm mx-auto bg-gray-900 rounded-md shadow-lg">
+  <h1 class="text-white text-center text-2xl mb-4">TODO APP</h1>
+  
+  <div class="new-todo flex gap-2 mb-4">
+    <input
+      type="text"
+      [(ngModel)]="newTodoTitle"
+      placeholder="Ingresa una nueva tarea"
+      class="flex-grow p-2 rounded-md text-white bg-gray-800 border border-gray-700"
+    />
+    <button
+      (click)="addTodo()"
+      class="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700"
+    >
+      +
+    </button>
+  </div>
+
+  <div class="filters flex gap-2 mb-4 justify-start">
+  <button
+    (click)="changeFilter('all')"
+    [class.active]="filter === 'all'"
+    class="text-gray-400 hover:text-white p-2 focus:outline-none"
+  >
+    Todos
+  </button>
+  <button
+    (click)="changeFilter('in_progress')"
+    [class.active]="filter === 'in_progress'"
+    class="text-gray-400 hover:text-white p-2 focus:outline-none"
+  >
+    Activas
+  </button>
+  <button
+    (click)="changeFilter('done')"
+    [class.active]="filter === 'done'"
+    class="text-gray-400 hover:text-white p-2 focus:outline-none"
+  >
+    Completados
+  </button>
+</div>
+
+  
+
+  <ul class="todolist space-y-2">
+    <li *ngFor="let todo of filteredTodos$ | async" class="todo flex items-center justify-between p-2 bg-gray-800 rounded-md">
+      <div class="flex items-center gap-2">
+        <input
+          type="checkbox"
+          [checked]="todo.completed"
+          (change)="toggleComplete(todo)"
+          class="form-checkbox h-5 w-5 text-blue-600 bg-gray-900 border-gray-600 rounded"
+        />
+        <label class="text-white">{{ todo.title }}</label>
+      </div>
+      <div class="flex gap-2">
+        <button (click)="editTodo(todo)" class="text-blue-400 hover:text-blue-500">Editar</button>
+        <button (click)="deleteTodo(todo)" class="text-red-400 hover:text-red-500">Eliminar</button>
+      </div>
+    </li>
+    <li>
+      <input
+        type="text"
+        placeholder="Editar Tarea"
+        class="w-full p-2 rounded-md text-white bg-gray-800 border border-gray-700"
+      />
+    </li>
+  </ul>
+</section>
+
+
+
+
 <!-- src/app/components/todo/todo.component.html -->
 
-<section class="todolist-wrapper">
-    <h1>TODO APP</h1>
-    <div class="new-todo">
-      <input type="text" [(ngModel)]="newTodoTitle" placeholder="Ingresa una nueva tarea">
-      <button (click)="addTodo()">+</button>
+<!-- <section class="flex flex-col w-full items-center justify-center p-2">
+  <h1>TODO APP</h1>
+  
+  <div class="new-todo flex flex-col gap-2 w-96 pt-2">
+    <!--
+    <input
+      type="text"
+      class="w-full p-1 bg-background-100 border rounded-md text-white"
+      [(ngModel)]="newTodoTitle"
+      placeholder="Ingresa el título de la nueva tarea"
+    />
+
+    <!--  
+    <input
+      type="text"
+      class="w-full p-1 bg-background-100 border rounded-md text-white mt-2"
+      [(ngModel)]="newTodoDescription"
+      placeholder="Ingresa una descripción para la tarea"
+    />
+
+    <!-- 
+    <button
+      class="w-full p-2 items-center justify-center rounded-md flex bg-primary text-white mt-2"
+      (click)="addTodo()"
+    >
+      Agregar
+    </button>
+  </div>
+
+
+  <div
+    class="flex w-96 items-center justify-center overflow-auto scrollbar-thumb-rounded scrollbar-track-rounded grow scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted mt-4"
+  >
+    <button
+      class="py-2 px-4 text-sm font-medium text-primary border-b-2 border-primary hover:border-primary hover:text-primary focus:outline-none"
+      (click)="changeFilter('all')"
+      [class.active-tab]="filter() === 'all'"
+    >
+      Todos
+    </button>
+
+    <button
+      class="py-2 px-4 text-sm font-medium text-muted-foreground border-b-2 border-transparent hover:border-primary hover:text-primary focus:outline-none"
+      (click)="changeFilter('active')"
+      [class.active-tab]="filter() === 'active'"
+    >
+      Activos
+    </button>
+
+    <button
+      class="py-2 px-4 text-sm font-medium text-muted-foreground border-b-2 border-transparent hover:border-primary hover:text-primary focus:outline-none"
+      (click)="changeFilter('completed')"
+      [class.active-tab]="filter() === 'completed'"
+    >
+      Completados
+    </button>
+  </div>
+  <hr class="text-gray-700 w-96 mt-2" />
+
+  <div class="flex flex-col gap-2 w-96 pt-2">
+    <div
+      *ngFor="let todo of filteredTodos$ | async"
+      class="flex flex-row w-full border justify-between rounded-md border-gray-500 p-2"
+    >
+      <div class="flex flex-col gap-2 items-start">
+        <div class="flex flex-row gap-2 items-center">
+          <input
+            type="checkbox"
+            [checked]="todo.completed"
+            (change)="toggleComplete(todo)"
+          />
+          <span class="text-base">{{ todo.title }}</span>
+          <span
+            class="text-xs p-1 border rounded-md"
+            [class.text-green-500]="todo.completed === false"
+            [class.text-red-600]="todo.completed === true"
+          >
+            {{ todo.completed ? 'Completado' : 'Activo' }}
+          </span>
+        </div>
+        <span class="text-xs text-gray-500">
+          {{ todo.creationDate | date: 'dd-MM-yyyy' }}
+        </span>
+      </div>
+      <div class="flex flex-row gap-2 items-center">
+        <button class="text-xs text-blue-500" (click)="editTodo(todo)">
+          Editar
+        </button>
+        <button class="text-xs text-orange-400" (click)="deleteTodo(todo)">
+          Eliminar
+        </button>
+      </div>
     </div>
-  
-    <div class="filters">
-      <button (click)="changeFilter('all')" [class.active]="filter() === 'all'">Todos</button>
-      <button (click)="changeFilter('active')" [class.active]="filter() === 'active'">Activas</button>
-      <button (click)="changeFilter('completed')" [class.active]="filter() === 'completed'">Completados</button>
-    </div>
-  
-    <ul class="todolist">
-      <li *ngFor="let todo of filteredTodos$ | async" class="todo">
-        <input type="checkbox" [checked]="todo.completed" (change)="toggleComplete(todo)">
-        <label>{{ todo.title }}</label>
-        <button (click)="editTodo(todo)">Editar</button>
-        <button (click)="deleteTodo(todo)">Eliminar</button>
-      </li>
-      <li>
-        <input type="text" placeholder="Editar Tarea">
-      </li>
-    </ul>
-  </section>
-  
+  </div>
+</section> -->

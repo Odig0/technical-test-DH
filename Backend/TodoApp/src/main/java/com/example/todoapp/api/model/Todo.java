@@ -6,13 +6,13 @@ public class Todo {
     private Integer id;
     private String title;
     private LocalDateTime creationDate;
-    private state state;
+    private State state;
 
-    public Todo(Integer id, String title, LocalDateTime creationDate, state state) {
-        this.id = id;
+    public Todo(String title, LocalDateTime creationDate, State state) {
         this.title = title;
         this.creationDate = creationDate;
-        this.state = state;
+        this.state = State.IN_PROGRESS;
+
     }
 
     public Integer getId() {
@@ -39,16 +39,17 @@ public class Todo {
         this.creationDate = creationDate;
     }
 
-    public state getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(state state) {
+    public void setState(State state) {
         this.state = state;
     }
 
-    public enum state {
+    public enum State {
         DONE,
-        IN_PROGRESS
+        IN_PROGRESS,
+        UPDATED_AT
     }
 }

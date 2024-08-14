@@ -1,5 +1,3 @@
-// src/app/services/todo-facade.service.ts
-
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators'; 
@@ -22,6 +20,7 @@ export class TodoFacade {
 
   private loadTodos(): void {
     this.todoService.getTodos().subscribe(todos => {
+      console.log('Todos loaded:', todos);
       this.todosSubject.next(todos);
     });
   }
@@ -45,6 +44,7 @@ export class TodoFacade {
   }
 
   changeFilter(filter: FilterType): void {
+    console.log('Changing filter in facade:', filter); // Verifica el filtro
     this.filterSubject.next(filter);
   }
 
@@ -55,10 +55,11 @@ export class TodoFacade {
         console.log('Current filter:', filter);
         console.log('Todos before filtering:', todos);
         if (filter === 'all') return todos;
-        if (filter === 'active') return todos.filter(todo => !todo.completed);
-        if (filter === 'completed') return todos.filter(todo => todo.completed);
+        if (filter === 'in_progress') return todos.filter(todo => !todo.completed);
+        if (filter === 'done') return todos.filter(todo => todo.completed);
         return todos;
       })
     );
-  }  
+  }
+  
 }

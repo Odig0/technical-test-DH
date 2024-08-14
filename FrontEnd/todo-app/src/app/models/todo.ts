@@ -1,7 +1,9 @@
 export interface TodoModel {
-    id: number;
+    id?: number;
     title: string;
     completed: boolean;
-    edditing?: boolean;
-}
-export type FilterType = 'all' | 'active' | 'completed';
+    creationDate: string;
+    editing?: boolean;
+  }
+  
+  export type FilterType = 'all' | 'in_progress' | 'done';
