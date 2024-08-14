@@ -1,20 +1,15 @@
-package com.example.todoapp.api.model;
+package com.example.todoapp.api.dto;
 
 import java.time.LocalDateTime;
 
-public class Todo {
+public class TodoDTO {
     private Integer id;
     private String title;
     private LocalDateTime creationDate;
-    private State state;
+    private String state;
     private boolean completed;
 
-    public Todo(String title, LocalDateTime creationDate, State state, Boolean completed) {
-        this.title = title;
-        this.creationDate = creationDate;
-        this.state = State.IN_PROGRESS;
-        this.completed = false;
-    }
+    // Getters y setters
 
     public Integer getId() {
         return id;
@@ -40,25 +35,19 @@ public class Todo {
         this.creationDate = creationDate;
     }
 
-    public State getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(String state) {
         this.state = state;
     }
+
     public boolean isCompleted() {
         return completed;
     }
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
-    }
-
-    public enum State {
-        DONE,
-        IN_PROGRESS,
-        TO_DO,
-        UPDATED_AT
     }
 }

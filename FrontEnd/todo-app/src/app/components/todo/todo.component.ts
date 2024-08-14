@@ -7,20 +7,20 @@ import { TodoFacade } from '../../services/todo-facade.service';
 import { TodoModel, FilterType } from '../../models/todo';
 import { AsyncPipe, NgForOf } from '@angular/common';
 import { signal } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [CommonModule, FormsModule, AsyncPipe, NgForOf, HttpClientModule],
+  imports: [CommonModule, FormsModule, AsyncPipe, NgForOf],
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
   newTodoTitle = '';
   filter: FilterType = 'all'; // Usa una variable normal en lugar de `signal`
-  editedTodo: TodoModel | null = null; // Agrega una variable para el título editado
+  editedTodo!: TodoModel ; // Agrega una variable para el título editado
+  editedTodoTitle: string = "";
 
   todos$ = this.todoFacade.todos$;
   filteredTodos$: Observable<TodoModel[]>;
@@ -33,6 +33,7 @@ export class TodoComponent implements OnInit {
     this.filteredTodos$.subscribe(todos => {
       console.log('Tareas filtradas:', todos); // Verifica las tareas filtradas
     });
+    this.editedTodoTitle = "Hola";
   }
 
   addTodo() {
@@ -53,7 +54,7 @@ export class TodoComponent implements OnInit {
   }
 
   editTodo(todo: TodoModel) {
-    const updatedTodo = { ...todo, title: todo.title.trim() };
+    const updatedTodo = { ...todo, title: this.editedTodoTitle.trim() };
     this.todoFacade.updateTodo(todo.id!, updatedTodo);
   }
 
@@ -66,6 +67,7 @@ export class TodoComponent implements OnInit {
     this.todoFacade.changeFilter(filter); // Actualiza el filtro en el servicio
   }
   preparedForEdit(todo: TodoModel) {
+    this.editedTodoTitle = todo.title;
     this.editedTodo = todo;
   }
 }
