@@ -1,5 +1,5 @@
-Todo Application
-Todo Application
+                                                        Todo Application
+                                                        
 This project is a Todo application built using Angular 17 for the frontend and Java 17 with Spring Boot 3.2 for the backend. The application allows you to perform CRUD operations (Create, Read, Update, Delete) on tasks.
 
 Technologies Used
